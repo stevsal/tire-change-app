@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Times</title>
+</head>
+<body>
+    <div>
+        <input type="checkbox" checked id="car">
+        <label for="car">Times for cars</label><br>
+        <input type="checkbox" checked id="truck">
+        <label for="truck">Times for trucks</label><br>
+    </div>
+    <table>
+        <tr th:each="time : ${allTimes}">
+            <td><span th:text="${time.name}"> Name </span>Name</td>
+            <td><span th:text="${time.time}"> Time </span>Time</td>
+            <td><span th:text="${time.uuid}"> UUID </span>UUID</td>
+            <td><span th:text="${time.id}"> ID </span>ID</td>
+            <td><span th:text="${time.available}"> Available </span>Available</td>
+        </tr>
+    </table>
+</body>
+</html>

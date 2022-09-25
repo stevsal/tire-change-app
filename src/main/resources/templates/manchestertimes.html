@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manchester</title>
+</head>
+<body>
+<div>Here are the manchester times</div>
+<div>
+    <input type="checkbox" checked id="car">
+    <label for="car">Times for cars</label><br>
+    <input type="checkbox" checked id="truck">
+    <label for="truck">Times for trucks</label><br>
+    <form action="#" th:action="@{/book}" th:object="${contactinfo}" method="post">
+        <p>name: <input type="text" th:field="*{contactInformation}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+<table>
+    <tr th:each="time : ${manchesterTimes}">
+        <td><span th:text="${time.name}"> Name </span>Name</td>
+        <td><span th:text="${time.time}"> Time </span>Time</td>
+        <td><span th:text="${time.id}"> UUID </span>ID</td>
+        <td><span th:text="${time.available}"> Available </span>Available</td>
+    </tr>
+</table>
+</body>
+</html>
