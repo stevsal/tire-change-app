@@ -33,3 +33,4 @@ build/
 .vscode/
 
 /workshops
+/src/test/java/com/example/smittirechangeapp/service/ChangeTimeServiceTest.java
