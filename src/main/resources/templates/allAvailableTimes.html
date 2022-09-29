@@ -35,7 +35,8 @@
             <p th:hidden="hidden"><span th:text="${time.id}"> ID </span></p>
             <p th:hidden="hidden"><span th:text="${time.available}" > Available </span></p>
         </div>
-        <h2 th:text="${erMessage}" ></h2>
+        <h2 th:text="${prettyErrorMsg}" ></h2>
+        <p th:text="${erMessage}"></p>
     </div>
 </body>
 <script>
@@ -48,7 +49,8 @@
         } else {
             id = elem[4].firstChild.innerHTML;
         }
-        window.location.href = "./book?contactInfo="+contactInformation+"&id="+id;
+        let bookingInfo = elem[0].firstChild.innerHTML+"-"+ elem[1].firstChild.innerHTML;
+        window.location.href = "./book?contactInfo="+contactInformation+"&id="+id+"&bookingInfo="+bookingInfo;
     }
 </script>
 </html>

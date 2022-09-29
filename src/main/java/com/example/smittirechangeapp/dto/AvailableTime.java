@@ -16,9 +16,8 @@ public class AvailableTime {
 	private LocalDateTime time;
 	private int id;
 	private boolean available;
+	private String message;
 
-	public String code;
-	public String message;
 	public AvailableTime() {
 	}
 
@@ -74,7 +73,7 @@ public class AvailableTime {
 		return message;
 	}
 
-	public void setMsg(String msg) {
-		this.message = msg;
+	public void setMsg(String message) {
+		this.message = message;
 	}
 }

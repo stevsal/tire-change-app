@@ -1,4 +1,4 @@
-package com.example.smittirechangeapp.models;
+package com.example.smittirechangeapp.dto;
 
 public class Site {
 	public String name;
@@ -45,3 +45,4 @@ public class Site {
 		this.url = url;
 	}
 }
+

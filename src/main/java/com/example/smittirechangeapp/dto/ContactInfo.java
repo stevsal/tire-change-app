@@ -1,4 +1,4 @@
-package com.example.smittirechangeapp.models;
+package com.example.smittirechangeapp.dto;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;

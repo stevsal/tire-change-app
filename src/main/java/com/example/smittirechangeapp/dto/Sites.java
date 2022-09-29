@@ -1,4 +1,4 @@
-package com.example.smittirechangeapp.models;
+package com.example.smittirechangeapp.dto;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -12,12 +12,6 @@ import java.util.List;
 public class Sites {
 	List<Site> sites;
 
-	public class Site {
-		public String name;
-		public String address;
-		public String types[];
-		public String url;
-	}
 	public Sites(){}
 	public List<Site> getSites() {
 		return sites;

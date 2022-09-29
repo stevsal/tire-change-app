@@ -6,7 +6,10 @@
 </head>
 <body>
     <div>
-        <p th:text="${response}"></p>
+        <p th:if="${response != null}" th:text="'Booking confirmed for'"></p>
+        <p th:if="${response != null}" th:text="${response.fullInfo}"></p>
+        <p th:if="${response != null}" th:text="${response.time}"></p>
+        <p th:text="${prettyError}"></p>
         <p th:text="${error}"></p>
     </div>
 </body>
