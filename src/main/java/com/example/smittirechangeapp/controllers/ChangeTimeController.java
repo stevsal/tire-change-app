@@ -31,6 +31,7 @@ public class ChangeTimeController {
 			return "allAvailableTimes";
 		}
 		catch (Exception e) {
+			model.addAttribute("Filters", filter);
 			model.addAttribute("err", "Something went wrong with the request");
 			model.addAttribute("erMessage", e.getMessage());
 			return "allAvailableTimes";

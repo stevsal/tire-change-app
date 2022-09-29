@@ -79,3 +79,7 @@ label input:checked ~ span:after {
 select {
     border-radius: 10px;
 }
+
+.table h2 {
+    color: white;
+}
