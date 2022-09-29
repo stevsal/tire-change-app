@@ -16,6 +16,25 @@ body {
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,121,61,1) 25%, rgba(0,212,255,1) 100%);
 }
 
+.errorElement {
+    background: #cccccc;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+}
+.errorElement p{
+    font-size: 20px;
+}
+.errorElement a{
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.errorElement .devError {
+    font-size: small;
+}
+
 .inner {
     justify-content: space-around;
     display: flex;
@@ -38,7 +57,7 @@ body {
 
 label input[type=checkbox] {
     position: absolute;
-    opactiy: 0;
+    opacity: 0;
     width:0;
     height:0;
 }

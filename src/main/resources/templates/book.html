@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Booking confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div>
+    <div class="errorElement">
         <p th:if="${response != null}" th:text="'Booking confirmed for'"></p>
         <p th:if="${response != null}" th:text="${response.fullInfo}"></p>
         <p th:if="${response != null}" th:text="${response.time}"></p>
         <p th:text="${prettyError}"></p>
-        <p th:text="${error}"></p>
+        <p class="devError" th:text="${error}"></p>
+        <a href="./allAvailableTimes">Back to booking list</a>
     </div>
 </body>
 </html>
