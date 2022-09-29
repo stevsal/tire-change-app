@@ -1,7 +1,11 @@
 package com.example.smittirechangeapp.models;
 
-public class ContactInfo {
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "london.tireChangeBookingResponse")
+public class ContactInfo {
+	@XmlElement
 	private String contactInformation;
 
 	public String getContactInformation() {

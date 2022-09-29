@@ -1,0 +1,81 @@
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top form {
+    background: rgba(155,168,165,0.78);
+    margin-right: 15px;
+    margin-left: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+body {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,121,61,1) 25%, rgba(0,212,255,1) 100%);
+}
+
+.inner {
+    justify-content: space-around;
+    display: flex;
+    background: rgba(176,189,186,0.65);
+    border: 3px solid grey;
+    border-radius: 7px;
+    padding: 2px;
+    margin: 2px;
+}
+.inner:hover {
+    background: rgba(130,100,100,0.67);
+    border-color: black;
+}
+
+.inner p {
+    margin-top: 7px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+label input[type=checkbox] {
+    position: absolute;
+    opactiy: 0;
+    width:0;
+    height:0;
+}
+
+label span {
+    position: absolute;
+    top:0;
+    left:0;
+    width:20px;
+    height:20px;
+    background-color: #ddd;
+    transition: .3s background-color;
+}
+
+label span:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+label:hover span {
+    background-color: #ccc;
+}
+
+label input:checked ~ span {
+    background-color: #2eaadc;
+}
+label input:checked ~ span:after {
+    display:block;
+}
+
+select {
+    border-radius: 10px;
+}

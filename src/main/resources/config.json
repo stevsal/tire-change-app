@@ -1,0 +1,6 @@
+{
+  "sites": [
+    {"name": "Manchester", "Address": "14 Bury New Rd, Manchester", "types":  ["car", "truck"], "url": "http://localhost:9004/api/v2/tire-change-times" },
+    {"name": "London", "Address": "4 Bury New Rd, London", "types":  ["car"], "url": "http://localhost:9003/api/v1/tire-change-times/" }
+  ]
+}

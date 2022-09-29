@@ -1,24 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
     <title>All Times</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div>
-        <input type="checkbox" checked id="car">
-        <label for="car">Times for cars</label><br>
-        <input type="checkbox" checked id="truck">
-        <label for="truck">Times for trucks</label><br>
+    <div class="top">
+    <form th:action="@{/allAvailableTimes}" th:object="${Filters}">
+        <select th:field="*{name}" id="selector">
+            <option value="none" th:text="Locations"></option>
+            <option th:value="london" th:text="London"></option>
+            <option th:value="manchester" th:text="Manchester"></option>
+        </select>
+        <input type="checkbox" checked id="car" th:field="*{car}"/>
+        <label for="car">Times for cars</label>
+        <input type="checkbox" checked id="truck" th:field="*{truck}">
+        <label for="truck">Times for trucks</label>
+        <br>
+        <input type="datetime" name="" id="dateBegin" th:field="*{from}">
+        <label for="dateBegin">Start date</label>
+        <input type="datetime" name="" id="dateEnd" th:field="*{until}">
+        <label for="dateEnd">End date</label>
+        <button type="submit">Submit</button>
+    </form>
+    <input type="text" id="contactInformation" th:object="${ContactInfo}" th:placeholder="email">
     </div>
-    <table>
-        <tr th:each="time : ${allTimes}">
-            <td><span th:text="${time.name}"> Name </span>Name</td>
-            <td><span th:text="${time.time}"> Time </span>Time</td>
-            <td><span th:text="${time.uuid}"> UUID </span>UUID</td>
-            <td><span th:text="${time.id}"> ID </span>ID</td>
-            <td><span th:text="${time.available}"> Available </span>Available</td>
-        </tr>
-    </table>
+    <div class="table">
+        <div class="inner" th:each="time : ${allTimes}" onclick="itemClicked(this.children)" th:object="${AvailableTime}">
+            <p><span th:text="${time.name}" id="name" > Name </span></p>
+            <p><span th:text="${time.address}" id="address"> Address </span></p>
+            <p><span th:text="${time.time}" > Time </span></p>
+            <p th:hidden="hidden"><span th:text="${time.uuid}" > UUID </span></p>
+            <p th:hidden="hidden"><span th:text="${time.id}"> ID </span></p>
+            <p th:hidden="hidden"><span th:text="${time.available}" > Available </span></p>
+        </div>
+    </div>
 </body>
+<script>
+    function itemClicked(elem) {
+        let id;
+        let contactInformation;
+        contactInformation = document.getElementById("contactInformation").value;
+        if (elem[0].firstChild.innerHTML == "London") {
+            id = elem[3].firstChild.innerHTML;
+        } else {
+            id = elem[4].firstChild.innerHTML;
+        }
+        window.location.href = "./book?contactInfo="+contactInformation+"&id="+id;
+    }
+</script>
 </html>
