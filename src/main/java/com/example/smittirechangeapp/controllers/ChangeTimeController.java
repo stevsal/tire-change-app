@@ -1,8 +1,8 @@
 package com.example.smittirechangeapp.controllers;
 
 import com.example.smittirechangeapp.dto.AvailableTime;
-import com.example.smittirechangeapp.models.ContactInfo;
-import com.example.smittirechangeapp.models.Filters;
+import com.example.smittirechangeapp.dto.ContactInfo;
+import com.example.smittirechangeapp.dto.Filters;
 import com.example.smittirechangeapp.services.ChangeTimeService;
 import com.google.common.primitives.Ints;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ChangeTimeController {
 			return "allAvailableTimes";
 		}
 		catch (Exception e) {
-			model.addAttribute("err", "Something went wrong with the request");
+			model.addAttribute("Filters", filter);
 			model.addAttribute("erMessage", e.getMessage());
 			return "allAvailableTimes";
 		}
@@ -42,6 +42,7 @@ public class ChangeTimeController {
 		try {
 			ContactInfo info = new ContactInfo();
 			info.setContactInformation(contactInfo);
+			AvailableTime response;
 			if (Ints.tryParse(id) != null) {
 				model.addAttribute("response",changeTimeService.bookTimeWithPost(Integer.parseInt(id), info));
 			} else {

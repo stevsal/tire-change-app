@@ -1,22 +1,10 @@
 package com.example.smittirechangeapp.services;
 
-import com.ctc.wstx.shaded.msv_core.util.Uri;
-import com.example.smittirechangeapp.dto.AvailableTime;
-import com.example.smittirechangeapp.dto.TireChangeTimesResponse;
-import com.example.smittirechangeapp.models.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.smittirechangeapp.dto.*;
 import org.springframework.http.*;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
-import org.springframework.http.codec.xml.Jaxb2XmlDecoder;
-import org.springframework.http.codec.xml.Jaxb2XmlEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.ExchangeStrategies;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,21 +43,24 @@ public class ChangeTimeService {
 		return timeList;
 	}
 
-	public String bookTimeWithPost(int id, ContactInfo info) {
+	public AvailableTime bookTimeWithPost(int id, ContactInfo info) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<ContactInfo> requestBody = new HttpEntity<ContactInfo>(info, headers);
 		var res = restTemplate.postForObject("http://localhost:9004/api/v2/tire-change-times/"+id+"/booking", requestBody, String.class);
-		return res;
+		AvailableTime response = new AvailableTime();
+		response.setMsg(res);
+		return response;
 	}
 
-	public String bookTimeWithPut(String uuid, ContactInfo info) {
+	public AvailableTime bookTimeWithPut(String uuid, ContactInfo info) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 		HttpEntity<ContactInfo> requestBody = new HttpEntity<ContactInfo>(info, headers);
-		var res = restTemplate.exchange("http://localhost:9003/api/v1/tire-change-times/{uuid}/booking", HttpMethod.PUT, requestBody, String.class, uuid);
-		res.getStatusCode();
-		return res.getBody();
+		var res = restTemplate.exchange("http://localhost:9003/api/v1/tire-change-times/{uuid}/booking", HttpMethod.PUT, requestBody, String.class, uuid).getBody();
+		AvailableTime response = new AvailableTime();
+		response.setMsg(res);
+		return response;
 	}
 
 	public String urlBuilder(String url, LocalDateTime from, LocalDateTime until) {

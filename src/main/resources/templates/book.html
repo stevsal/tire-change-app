@@ -6,7 +6,8 @@
 </head>
 <body>
     <div>
-        <p th:text="${response}"></p>
+        <p>Booked time for</p>
+        <p th:text="${response.getMsg()}"></p>
         <p th:text="${error}"></p>
     </div>
 </body>
