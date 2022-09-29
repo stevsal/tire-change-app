@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@PropertySource(value = "classpath:config.json")
-@ConfigurationProperties(prefix = "config")
 public class Sites {
 	List<Site> sites;
 

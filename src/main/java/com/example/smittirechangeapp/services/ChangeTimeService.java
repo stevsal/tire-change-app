@@ -1,11 +1,15 @@
 package com.example.smittirechangeapp.services;
 
 import com.example.smittirechangeapp.dto.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,17 +21,12 @@ public class ChangeTimeService {
 
 	RestTemplate restTemplate = new RestTemplate();
 
-	Sites confSites = new Sites();
+	List<Site> configSites = getSitesFromConfig();
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public List<AvailableTime> getAll(Filters filter) {
-		List<Site> sites = new ArrayList<>();
-		sites.add(new Site("London", "4 Bury New Rd, London", new String[]{"car", "truck"},"http://localhost:9003/api/v1/tire-change-times/available" ));
-		sites.add(new Site("Manchester", "14 Bury New Rd, London", new String[]{"car"},"http://localhost:9004/api/v2/tire-change-times/" ));
-		ArrayList<String> filterTypes = new ArrayList<>();
-		if(filter.isCar()) { filterTypes.add("car");}
-		if(filter.isTruck()) { filterTypes.add("truck");}
+		List<Site> sites = configSites;
 		List<AvailableTime> timeList = new ArrayList<>();
 		String url;
 		for (Site site : sites) {
@@ -69,6 +68,27 @@ public class ChangeTimeService {
 			return UriComponentsBuilder.fromUriString(url)
 					.queryParam("from", formatter.format(LocalDateTime.now()))
 					.queryParam("until", formatter.format(LocalDateTime.now().plusMonths(3))).build().toUriString();
+		}
+	}
+
+	public List<Site> filterSites(List<Site> sites,Filters filter){
+		ArrayList<String> filterTypes = new ArrayList<>();
+		if(filter.isCar()) { filterTypes.add("car");}
+		if(filter.isTruck()) { filterTypes.add("truck");}
+		for (Site site: sites) {
+			if(filter.getName() != site.name) sites.remove(site);
+		}
+		return sites;
+	}
+
+	public List<Site> getSitesFromConfig() {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			File configFile = new ClassPathResource("config.json").getFile();
+			var data = mapper.readValue(configFile, Sites.class);
+			return data.getSites();
+		} catch (IOException e) {
+			return new ArrayList<Site>();
 		}
 	}
 }

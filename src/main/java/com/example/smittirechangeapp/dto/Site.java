@@ -13,6 +13,8 @@ public class Site {
 		this.url = url;
 	}
 
+	public Site(){}
+
 	public String getName() {
 		return name;
 	}
