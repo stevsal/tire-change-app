@@ -1,3 +1,5 @@
 # tire-change-app
 
-App is missing proper error handling and proper styling.
+This app is made as an homework for an interview.
+App runs on Spring Boot and Thymeleaf template engine.
+Proper Styling is missing and tests are missing.
