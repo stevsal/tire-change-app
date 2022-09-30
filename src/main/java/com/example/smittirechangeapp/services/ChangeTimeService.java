@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.util.ArrayUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class ChangeTimeService {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public List<AvailableTime> getAll(Filters filter) {
-		List<Site> sites = configSites;
+		List<Site> sites = filterSites(configSites, filter);
 		List<AvailableTime> timeList = new ArrayList<>();
 		String url;
 		for (Site site : sites) {
@@ -44,7 +45,6 @@ public class ChangeTimeService {
 
 	public TireChangeBookingResponse bookTimeWithPost(int id, ContactInfo info) {
 		HttpHeaders headers = new HttpHeaders();
-		AvailableTime response = new AvailableTime();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<ContactInfo> requestBody = new HttpEntity<ContactInfo>(info, headers);
 		var res = restTemplate.postForObject("http://localhost:9004/api/v2/tire-change-times/"+id+"/booking", requestBody, TireChangeBookingResponse.class);
@@ -72,13 +72,27 @@ public class ChangeTimeService {
 	}
 
 	public List<Site> filterSites(List<Site> sites,Filters filter){
+		List<Site> filteredSites = new ArrayList<>();
+		filteredSites.addAll(sites);
 		ArrayList<String> filterTypes = new ArrayList<>();
 		if(filter.isCar()) { filterTypes.add("car");}
 		if(filter.isTruck()) { filterTypes.add("truck");}
-		for (Site site: sites) {
-			if(filter.getName() != site.name) sites.remove(site);
+		for (Site site: filteredSites) {
+			if (filter.getName() != null && !filter.getName().equals("none")) {
+				if(!filter.getName().equals(site.name.toLowerCase())) {
+					filteredSites.remove(site);
+					break;
+				}
+			}
+			if (!filterTypes.isEmpty()) {
+				boolean contains = false;
+				for (String type: filterTypes) {
+					if(ArrayUtils.contains(site.getTypes(), type)) contains = true;
+				}
+				if(!contains) filteredSites.remove(site);
+			}
 		}
-		return sites;
+		return filteredSites;
 	}
 
 	public List<Site> getSitesFromConfig() {
